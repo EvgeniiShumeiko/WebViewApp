@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   TouchableOpacity,
   Text,
@@ -9,8 +9,9 @@ import {
   SafeAreaView,
   Dimensions,
 } from 'react-native';
-import {Icon} from 'react-native-elements';
-import {WebView} from 'react-native-webview';
+import NavigationBar from 'react-native-navbar-color'
+import { Icon } from 'react-native-elements';
+import { WebView } from 'react-native-webview';
 import url from 'url';
 
 export default class WebContent extends Component {
@@ -24,11 +25,14 @@ export default class WebContent extends Component {
     this.hideSpinner = this.hideSpinner.bind(this);
     this.backHandler = this.backHandler.bind(this);
   }
+  componentDidMount() {
+    NavigationBar.setColor('#000000')
+  }
   hideSpinner() {
-    this.setState({visible: false});
+    this.setState({ visible: false });
   }
   showSpinner() {
-    this.setState({visible: true});
+    this.setState({ visible: true });
   }
   backHandler() {
     if (this.state.backButtonEnabled) {
@@ -38,8 +42,8 @@ export default class WebContent extends Component {
   }
 
   render() {
-    let {uri, getWebView} = this.props;
-    let {visible} = this.state;
+    let { uri, getWebView } = this.props;
+    let { visible } = this.state;
     let addScript = this.props.addScript ?? '';
     return (
       <>
@@ -65,7 +69,7 @@ export default class WebContent extends Component {
           scalesPageToFit={true}
           domStorageEnabled={true}
           style={styles.cont}
-          source={{uri: uri}}
+          source={{ uri: uri }}
           onHttpError={this.hideSpinner}
           onError={this.hideSpinner}
           onLoadStart={this.showSpinner}
@@ -103,7 +107,7 @@ export default class WebContent extends Component {
           renderError={this._renderError}
         />
         {visible && this._renderLoading()}
-        <SafeAreaView style={{backgroundColor: '#64aa46'}}>
+        <SafeAreaView style={{ backgroundColor: '#3c3c3c' }}>
           <View style={styles.bottomTabBarContainer}>
             <TouchableOpacity
               accessibilityRole="button"
@@ -157,7 +161,7 @@ export default class WebContent extends Component {
       <View style={styles.activity_cont}>
         <ActivityIndicator
           size="large"
-          color="#64aa46"
+          color="#3c3c3c"
           style={styles.activity}
         />
       </View>
@@ -167,7 +171,7 @@ export default class WebContent extends Component {
   _renderError = (errorName) => {
     return (
       <View style={styles.container_error}>
-        <Text style={styles.logo_text}>SUHBA</Text>
+        <Text style={styles.logo_text}>Error</Text>
         <Text style={styles.error_text}>Network Connection Error</Text>
         <TouchableOpacity
           style={styles.button}
@@ -196,7 +200,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#64aa46',
+    backgroundColor: '#3c3c3c',
   },
   cont: {
     margin: 0,
@@ -237,13 +241,13 @@ const styles = StyleSheet.create({
   error_text: {
     fontSize: 15,
     textTransform: 'uppercase',
-    color: '#64aa46',
+    color: '#3c3c3c',
     fontWeight: 'bold',
   },
   logo_text: {
     fontSize: 40,
     textTransform: 'uppercase',
-    color: '#64aa46',
+    color: '#3c3c3c',
     fontWeight: 'bold',
   },
 });
