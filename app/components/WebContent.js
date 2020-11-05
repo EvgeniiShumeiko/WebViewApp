@@ -19,6 +19,7 @@ export default class WebContent extends Component {
     super(props);
     this.state = {
       visible: true,
+      update: 'main',
       backButtonEnabled: false,
     };
     this.showSpinner = this.showSpinner.bind(this);
@@ -54,7 +55,7 @@ export default class WebContent extends Component {
               getWebView(this.webref);
             }
           }}
-          key={this.props.update}
+          key={this.state.update}
           onLoadProgress={(event) => {
             if (event.nativeEvent.progress > 0.8) {
               this.hideSpinner();
@@ -127,6 +128,9 @@ export default class WebContent extends Component {
               accessibilityRole="button"
               key="reload_button"
               onPress={() => {
+                this.setState({ update: this.state.update == "main" ? 'up' : 'main' });
+              }}
+              onLongPress={() => {
                 this.webref.reload();
               }}
               style={styles.bottomTabButton}>
